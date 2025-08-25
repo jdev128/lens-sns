@@ -1,16 +1,16 @@
 .gridLayout {
 	display: grid;
-	width: 100dvw;
-	min-height: calc(100dvh - var(--navbar-height));
-	grid-template-columns: 25dvw 1fr 25dvw;
+	margin-inline: var(--grid-margin-inline);
+	width: calc(100dvw - var(--grid-margin-inline) * 2);
+	margin-block: calc(var(--navbar-height) + var(--grid-margin-inline)) var(--grid-margin-inline);
+	min-height: calc(100dvh - var(--navbar-height) - var(--grid-margin-inline) * 2);
+	grid-template-columns: var(--double-sidebar-layout);
 	gap: var(--grid-gap);
-	padding-inline: var(--grid-margin-xl);
 }
 
 @media screen and (max-width: 720px) {
 	.gridLayout {
-		grid-template-columns: 1fr;
-		padding-inline: var(--grid-margin);
+		grid-template-columns: var(--one-column-layout);
 		aside {
 			display: none;
 		}

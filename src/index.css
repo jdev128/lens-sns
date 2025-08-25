@@ -18,14 +18,18 @@
 	--on-secondary-light-color: #000000;
 	--error-color: #b00020;
 	--on-error-color: #ffffff;
-	--success-color: var(--secondary-color-shade);
+	--success-color: var(--secondary-shade-color);
+	--on-success-color: var(--on-secondary-shade-color);
 	--disabled-color: #c2c2c2;
 	--on-disabled-color: #000000;
 
 	--navbar-height: 10dvh;
+
 	--grid-gap: 16px;
-	--grid-margin: 16px;
-	--grid-margin-xl: 32px;
+	--grid-margin-inline: 32px;
+
+	--double-sidebar-layout: 20dvw 1fr 20dvw;
+	--one-column-layout: 1fr;
 }
 
 * {
@@ -36,4 +40,11 @@
 
 body {
 	font-family: "Inter", sans-serif;
+}
+
+@media screen and (max-width: 720px) {
+	:root {
+		--grid-gap: 8px;
+		--grid-margin-inline: 16px;
+	}
 }

@@ -1,3 +1,6 @@
 .navbar {
 	height: var(--navbar-height);
+	background-color: var(--primary-color);
+	position: fixed;
+	inset: 0 0 auto;
 }
