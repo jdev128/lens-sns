@@ -8,8 +8,8 @@ interface ViteTypeOptions {
 
 interface ImportMetaEnv {
 	readonly VITE_BACKEND_BASE_URL: string;
-	readonly VITE_BACKEND_POST_PATH: string;
-	readonly VITE_BACKEND_COMMENT_PATH: string;
+	readonly VITE_BACKEND_POSTS_ENDPOINT: string;
+	readonly VITE_BACKEND_COMMENTS_ENDPOINT: string;
 }
 
 interface ImportMeta {
