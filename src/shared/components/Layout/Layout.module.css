@@ -1,0 +1,18 @@
+.gridLayout {
+	display: grid;
+	width: 100dvw;
+	min-height: calc(100dvh - var(--navbar-height));
+	grid-template-columns: 25dvw 1fr 25dvw;
+	gap: var(--grid-gap);
+	padding-inline: var(--grid-margin-xl);
+}
+
+@media screen and (max-width: 720px) {
+	.gridLayout {
+		grid-template-columns: 1fr;
+		padding-inline: var(--grid-margin);
+		aside {
+			display: none;
+		}
+	}
+}

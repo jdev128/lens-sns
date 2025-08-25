@@ -1,0 +1,39 @@
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+:root {
+	--primary-color: #009688;
+	--on-primary-color: #000000;
+	--primary-shade-color: #00796b;
+	--on-primary-shade-color: #ffffff;
+	--primary-light-color: #4db6ac;
+	--on-primary-light-color: #000000;
+	--secondary-color: #00daab;
+	--on-secondary-color: #000000;
+	--secondary-shade-color: #00b788;
+	--on-secondary-shade-color: #000000;
+	--secondary-light-color: #00efc8;
+	--on-secondary-light-color: #000000;
+	--error-color: #b00020;
+	--on-error-color: #ffffff;
+	--success-color: var(--secondary-color-shade);
+	--disabled-color: #c2c2c2;
+	--on-disabled-color: #000000;
+
+	--navbar-height: 10dvh;
+	--grid-gap: 16px;
+	--grid-margin: 16px;
+	--grid-margin-xl: 32px;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Inter", sans-serif;
+}
