@@ -1,69 +1,37 @@
-# React + TypeScript + Vite
+# Lens SNS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una red social para que puedas mantenerte en contacto con tus amigos y seres queridos.
 
-Currently, two official plugins are available:
+## Ejecucion local
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Ejecuta el siguiente comando para instalar las dependencias y construir la aplicacion:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install && npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Una vez finalizada la ejecucion, genera la imagen del servidor donde va a estar alojada la aplicacion, haciendo uso del siguiente comando:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+podman build -t lens-sns .
+```
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Ahora solo resta iniciar el servidor:
+
+```bash
+podman run --name lens-sns-frontend -d -p 8080:80 lens-sns
+```
+
+Listo, ya tienes todo en condiciones para poder navegar por la aplicacion a traves de este [enlace](http://localhost:8080/).
+
+NOTA: Recuerda detener el servidor cuando hayas terminado de probar la aplicacion, haciendo uso del siguiente comando:
+
+```bash
+podman stop lens-sns-frontend
+```
+
+Si deseas volver a iniciar el servidor, puedes utilizar este comando para evitar realizar todos los pasos anteriores:
+
+```bash
+podman start lens-sns-frontend
 ```

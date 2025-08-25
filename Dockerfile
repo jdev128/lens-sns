@@ -1,2 +1,2 @@
-FROM nginx:stable-alpine3.21-perl
+FROM docker.io/library/nginx:mainline-alpine3.22
 COPY dist /usr/share/nginx/html
