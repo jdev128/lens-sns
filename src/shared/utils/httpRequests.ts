@@ -1,4 +1,4 @@
-import { VALID_HTTP_METHODS } from "./constants/constants";
+import { VALID_HTTP_METHODS } from "./constants/services";
 
 export const sendRequest = async (url: string, method: string = "GET", body?: any): Promise<any> => {
     if (!VALID_HTTP_METHODS.includes(method)) {

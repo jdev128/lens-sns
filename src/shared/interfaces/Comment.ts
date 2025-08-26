@@ -1,8 +1,9 @@
-export interface Post {
+export interface Comment {
 	createdAt: string;
 	name: string;
 	avatar: string;
 	content: string;
-	title: string;
+	postId: string;
 	id: string;
+	parentId: null | string;
 }
