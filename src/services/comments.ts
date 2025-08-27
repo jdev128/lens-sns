@@ -1,4 +1,4 @@
-import type { Comment } from "../shared/interfaces/Comment";
+import type { Comment } from "../shared/types/Comment";
 import {
 	POST_COMMENTS_URL,
 	POST_ID_PLACEHOLDER,

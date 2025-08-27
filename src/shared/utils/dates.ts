@@ -1,4 +1,4 @@
-import type { TimePeriod } from "../interfaces/TimePeriod";
+import type { TimePeriod } from "../types/TimePeriod";
 import { ORDERED_PERIODS } from "./constants/dates";
 
 export const getCurrentISODate = (): string => new Date().toISOString();

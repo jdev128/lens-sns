@@ -1,4 +1,4 @@
-import type { Post } from "../shared/interfaces/Post";
+import type { Post } from "../shared/types/Post";
 import { POSTS_URL } from "../shared/utils/constants/services";
 import { sendRequest } from "../shared/utils/httpRequests";
 

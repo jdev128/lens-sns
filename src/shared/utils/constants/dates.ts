@@ -1,4 +1,4 @@
-import type { TimeUnit } from "../../interfaces/TimeUnit";
+import type { TimeUnit } from "../../types/TimeUnit";
 
 export const MILLISECONDS_PER_SECOND = 1000;
 export const MILLISECONDS_PER_MINUTE = 1000 * 60;

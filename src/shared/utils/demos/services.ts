@@ -1,6 +1,6 @@
-import type { Post } from "../../interfaces/Post";
-import type { Comment } from "../../interfaces/Comment";
-import type { User } from "../../interfaces/User";
+import type { Post } from "../../types/Post";
+import type { Comment } from "../../types/Comment";
+import type { User } from "../../types/User";
 import { getCurrentISODate } from "../dates";
 import {
 	createPost,
