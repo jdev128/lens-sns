@@ -1,0 +1,17 @@
+import { createContext, useContext } from "react";
+import type { User } from "../shared/types/User";
+
+const initialValue: { user: User } = {
+	user: {
+		name: "",
+		avatar: "",
+	},
+};
+
+const UserContext = createContext(initialValue);
+
+export const useUserContext = () => {
+	return useContext(UserContext);
+};
+
+export default UserContext;
