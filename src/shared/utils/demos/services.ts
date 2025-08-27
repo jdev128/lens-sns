@@ -37,7 +37,7 @@ let newComment: Partial<Comment> = {
 		"Atavus dolorem velit nam commemoro advoco succurro suppellex audax. Clamo cum attollo venustas adnuo. Vorago ullam tero.\nDemonstro saepe tantum auctus ademptio subito consequuntur quod vesper. Compono turbo cohors verbera ater. Eum comedo voluptate barba volva.\nDeporto bardus deludo celebrer avarus adulatio. Tutis acidus cupio cena auxilium vito. Vulpes undique casso quo conforto utroque carpo terreo caelestis carmen.",
 };
 
-getPosts().then((posts) => {
+getPosts(1).then((posts) => {
 	console.log(posts);
 });
 

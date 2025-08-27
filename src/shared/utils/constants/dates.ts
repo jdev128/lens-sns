@@ -6,7 +6,7 @@ export const MILLISECONDS_PER_HOUR = MILLISECONDS_PER_MINUTE * 60;
 export const MILLISECONDS_PER_DAY = MILLISECONDS_PER_HOUR * 24;
 export const MILLISECONDS_PER_WEEK = MILLISECONDS_PER_DAY * 7;
 
-export const ORDERED_PERIODS: Array<{
+export const ORDERED_PERIODS: ReadonlyArray<{
 	millisecondsQuantity: number;
 	unit: TimeUnit;
 }> = [

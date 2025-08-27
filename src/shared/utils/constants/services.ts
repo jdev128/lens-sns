@@ -8,10 +8,10 @@ export const POST_COMMENTS_URL =
 	`${POSTS_URL}/${POST_ID_PLACEHOLDER}` +
 	import.meta.env.VITE_BACKEND_COMMENTS_ENDPOINT;
 
-export const VALID_HTTP_METHODS = Object.freeze([
+export const VALID_HTTP_METHODS: ReadonlyArray<string> = [
 	"GET",
 	"POST",
 	"PUT",
 	"PATCH",
 	"DELETE",
-]);
+];

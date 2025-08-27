@@ -3,10 +3,12 @@ import { POSTS_URL } from "../shared/utils/constants/services";
 import { sendRequest } from "../shared/utils/httpRequests";
 
 export const getPosts = (
+	page: number,
+	itemsPerPage: number = 5,
 	sortBy: string = "createdAt",
 	order: string = "desc"
 ): Promise<Post[]> =>
-	sendRequest(`${POSTS_URL}?sortBy=${sortBy}&order=${order}`);
+	sendRequest(`${POSTS_URL}?sortBy=${sortBy}&order=${order}&limit=${itemsPerPage}&page=${page}`);
 
 export const getPost = (postId: string): Promise<Post> =>
 	sendRequest(`${POSTS_URL}/${postId}`);
