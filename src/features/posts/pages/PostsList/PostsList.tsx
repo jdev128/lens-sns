@@ -2,14 +2,11 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import "./PostsList.module.css";
 import { getPosts } from "../../../../services/posts";
 import React from "react";
-import {
-	getElapsedTime,
-	getPrintableTimePeriod,
-} from "../../../../shared/utils/dates";
 import { useNavigate } from "react-router";
+import { PostCard } from "../../components/PostCard";
+import { List, ListItem } from "../../../../shared/components/List/List";
 
 export const PostsList = () => {
-
 	const {
 		data,
 		error,
@@ -39,36 +36,31 @@ export const PostsList = () => {
 		<p>Error: {error.message}</p>
 	) : (
 		<>
-			{data.pages.map((group, i) => (
-				<React.Fragment key={i}>
-					{group.map((post) => (
-							<article
-								key={post.id}
-								style={{ marginBlockEnd: "20px" }}
-								onClick={() => navigate(`/post/${post.id}`)}
-							>
-								<div>{post.name}</div>
-								<div>
-									{getPrintableTimePeriod(
-										getElapsedTime(new Date(post.createdAt))
-									)}
-								</div>
-								<div>{post.title}</div>
-								<div>{post.content}</div>
-							</article>
-					))}
-				</React.Fragment>
-			))}
+			<List>
+				{data.pages.map((group, i) => (
+					<React.Fragment key={i}>
+						{group.map((post) => (
+							<ListItem key={post.id}>
+								<PostCard
+									data={post}
+									shortFormat
+									onClick={() => navigate(`/post/${post.id}`)}
+								/>
+							</ListItem>
+						))}
+					</React.Fragment>
+				))}
+			</List>
 			<div>
 				<button
 					onClick={() => fetchNextPage()}
 					disabled={!hasNextPage || isFetching}
 				>
 					{isFetchingNextPage
-						? "Loading more..."
+						? "Cargando..."
 						: hasNextPage
-						? "Load More"
-						: "Nothing more to load"}
+						? "Cargar mas publicaciones"
+						: "Llegaste al final"}
 				</button>
 			</div>
 		</>

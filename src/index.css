@@ -23,7 +23,12 @@
 	--disabled-color: #c2c2c2;
 	--on-disabled-color: #000000;
 
+	--hover-color: #f2f2f2;
+	--background-color: #ffffff;
+
 	--spacing: 16px;
+	--surface-border-radius: 10px;
+	--actionable-border-radius: 15px;
 
 	--navbar-height: 10dvh;
 	--sidebar-width: 20dvw;
@@ -37,11 +42,48 @@
 
 body {
 	font-family: "Inter", sans-serif;
+	font-size: 1rem;
+	font-weight: 400;
+}
+
+/* 
+	Set parent font size to reduce size
+	Useful for hierarchical relationships
+	denoted through font size.
+	e.g., Post & Comment
+*/
+
+.clarificationText {
+	font-size: 0.875em;
+	font-weight: 400;
+}
+
+.titleText {
+	font-size: 1.125em;
+	font-weight: 500;
+}
+
+.headerText {
+	font-size: 1.25em;
+	font-weight: 700;
+}
+
+/* 
+	Useful classes for hierarchical 
+	relationships denoted through font style.
+	e.g., Post & Comment
+*/
+
+.emphasizedText {
+	font-weight: 700;
+}
+
+.deemphasizedText {
+	color: var(--disabled-color);
 }
 
 @media screen and (width <= 992px) {
 	:root {
-		--spacing: 8px;
 		--sidebar-width: 90dvw;
 	}
 }

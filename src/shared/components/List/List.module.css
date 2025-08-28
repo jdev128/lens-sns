@@ -1,0 +1,8 @@
+.listItem:not(:last-child) {
+	padding-block-end: 8px;
+	border-block-end: 1.5px solid var(--disabled-color);
+}
+
+.listItem:not(:first-child) {
+	padding-block-start: 8px;
+}
