@@ -1,6 +1,26 @@
 .navbar {
 	height: var(--navbar-height);
 	background-color: var(--primary-color);
+	color: var(--secondary-light-color);
 	position: fixed;
 	inset: 0 0 auto;
+	z-index: 50;
+	padding-inline: var(--spacing);
+	gap: var(--spacing);
+	display: flex;
+	align-items: center;
+
+	& > * {
+		display: flex;
+		gap: var(--spacing);
+		align-items: center;
+	}
+}
+
+.logo {
+	height: 32px;
+}
+
+.content {
+	flex-grow: 1;
 }

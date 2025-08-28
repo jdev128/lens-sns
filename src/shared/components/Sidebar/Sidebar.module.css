@@ -1,0 +1,15 @@
+.sidebar {
+	flex-basis: var(--sidebar-width);
+	flex-shrink: 0;
+    padding: var(--spacing);
+	&:first-child {
+		border-inline-end: 1px solid var(--disabled-color);
+	}
+	&:last-child {
+		border-inline-start: 1px solid var(--disabled-color);
+	}
+}
+
+.collapsedSidebar {
+	display: none;
+}

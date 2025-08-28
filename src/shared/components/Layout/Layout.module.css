@@ -1,18 +1,10 @@
-.gridLayout {
-	display: grid;
-	margin-inline: var(--grid-margin-inline);
-	width: calc(100dvw - var(--grid-margin-inline) * 2);
-	margin-block: calc(var(--navbar-height) + var(--grid-margin-inline)) var(--grid-margin-inline);
-	min-height: calc(100dvh - var(--navbar-height) - var(--grid-margin-inline) * 2);
-	grid-template-columns: var(--double-sidebar-layout);
-	gap: var(--grid-gap);
-}
-
-@media screen and (max-width: 720px) {
-	.gridLayout {
-		grid-template-columns: var(--one-column-layout);
-		aside {
-			display: none;
-		}
+.layout {
+	display: flex;
+	position: relative;
+	top: var(--navbar-height);
+	min-height: calc(100dvh - var(--navbar-height));
+	main {
+		padding: var(--spacing);
+		flex-grow: 1;
 	}
 }
