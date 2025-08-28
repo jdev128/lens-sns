@@ -24,7 +24,7 @@ export const CardHeader = ({ children, endAction }: HeaderProps) => {
 	return (
 		<header className={styles.cardHeader}>
 			<div>{children}</div>
-			{endAction && <div>endAction</div>}
+			{endAction && <div>{endAction}</div>}
 		</header>
 	);
 };

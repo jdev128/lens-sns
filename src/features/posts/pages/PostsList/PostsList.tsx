@@ -5,6 +5,8 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { PostCard } from "../../components/PostCard";
 import { List, ListItem } from "../../../../shared/components/List/List";
+import { Button } from "../../../../shared/components/Button";
+import styles from "./PostsList.module.css"
 
 export const PostsList = () => {
 	const {
@@ -51,17 +53,19 @@ export const PostsList = () => {
 					</React.Fragment>
 				))}
 			</List>
-			<div>
-				<button
+			<div className={styles.buttonContainer}>
+				<Button
 					onClick={() => fetchNextPage()}
 					disabled={!hasNextPage || isFetching}
+					variant="text"
+					expansible
 				>
 					{isFetchingNextPage
 						? "Cargando..."
 						: hasNextPage
 						? "Cargar mas publicaciones"
 						: "Llegaste al final"}
-				</button>
+				</Button>
 			</div>
 		</>
 	);
