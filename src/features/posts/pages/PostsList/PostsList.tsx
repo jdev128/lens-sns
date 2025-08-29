@@ -22,7 +22,7 @@ export const PostsList = () => {
 		queryFn: ({ pageParam }) => getPosts(pageParam, 5),
 		initialPageParam: 1,
 		maxPages: 10,
-		getNextPageParam: (lastPage, allPages, lastPageParam) => {
+		getNextPageParam: (lastPage, [], lastPageParam) => {
 			if (lastPage.length === 0) {
 				return undefined;
 			}
