@@ -1,16 +1,16 @@
 import type { IconProps } from "./IconProps";
 
-export const CloseMark = ({ small }: IconProps) => {
+export const CloseMark = ({ size = "24px", color = "currentColor" }: IconProps) => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			fill="none"
 			viewBox="0 0 24 24"
 			strokeWidth={1.5}
-			stroke="currentColor"
+			stroke={color}
 			className="size-6"
-			width={small ? "24px" : "32px"}
-			height={small ? "24px" : "32px"}
+			width={size}
+			height={size}
 		>
 			<path
 				strokeLinecap="round"

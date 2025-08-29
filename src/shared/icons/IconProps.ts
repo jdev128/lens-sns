@@ -1,3 +1,4 @@
 export interface IconProps {
-	small?: boolean;
+	size?: string;
+	color?: string;
 }
