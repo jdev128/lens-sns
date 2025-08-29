@@ -1,0 +1,52 @@
+.textareaHeader, .textareaActions {
+	display: flex;
+	align-items: center;
+	justify-content: end;
+	gap: var(--spacing);
+}
+
+.label {
+	flex-grow: 1;
+	font-weight: var(--medium-font-weight);
+}
+
+.textareaContainer {
+	border: 1.5px solid;
+    border-color: var(--on-primary-color);
+	border-radius: var(--surface-border-radius);
+	padding: var(--spacing);
+    transition: all 0.3s ease;
+}
+
+.textareaContainer:has(.textarea:focus) {
+	border-color: var(--primary-light-color);
+    box-shadow: 1px 1px 3px var(--greyed-text-color);
+}
+
+.textarea {
+	width: 100%;
+	outline: none;
+	border: none;
+	resize: none;
+    overflow: hidden;
+	field-sizing: content;
+	word-break: break-all;
+	font-size: var(--clarification-font-size);
+	caret-color: var(--primary-light-color);
+	&::placeholder {
+		color: var(--greyed-text-color);
+	}
+}
+
+.textarea[rows] {
+    field-sizing: fixed;
+}
+
+.characterCounter,
+.label {
+	padding-block: var(--spacing);
+}
+
+.textareaActions {
+    margin-block-start: var(--spacing);
+}

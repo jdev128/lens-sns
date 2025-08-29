@@ -13,7 +13,7 @@ import {
 	getPrintableTimePeriod,
 } from "../../../../shared/utils/dates";
 import { deleteCommentFromPost } from "../../../../services/comments";
-import styles from "./CommentCard.module.css"
+import styles from "./CommentCard.module.css";
 
 interface Props {
 	data: Comment;

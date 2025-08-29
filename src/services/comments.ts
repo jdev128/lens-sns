@@ -8,14 +8,6 @@ import { sendRequest } from "../shared/utils/httpRequests";
 const buildPostCommentsURL = (postId: string) =>
 	POST_COMMENTS_URL.replace(POST_ID_PLACEHOLDER, postId);
 
-const createLinkedComment = (
-	comment: Partial<Comment>,
-	postId: string,
-	parentCommentId: string | null
-): Partial<Comment> => {
-	return { ...comment, postId, parentId: parentCommentId };
-};
-
 export const getCommentsFromPost = (
 	postId: string,
 	parentCommentId: string | null = null,
@@ -27,14 +19,12 @@ export const getCommentsFromPost = (
 	);
 
 export const createComment = (
-	postId: string,
-	data: Partial<Comment>,
-	parentCommentId?: string
+	data: Omit<Comment, "id">
 ): Promise<Comment> =>
 	sendRequest(
-		buildPostCommentsURL(postId),
+		buildPostCommentsURL(data.postId),
 		"POST",
-		createLinkedComment(data, postId, parentCommentId ?? null)
+		data
 	);
 
 export const deleteCommentFromPost = (

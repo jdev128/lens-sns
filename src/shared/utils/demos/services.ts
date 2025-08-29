@@ -29,10 +29,12 @@ let newPost: Partial<Post> = {
 	title: "Un dia especial para tirar codigo de sol a sol",
 };
 
-let newComment: Partial<Comment> = {
+let newComment: Omit<Comment, "id"> = {
 	name: currentUser.name,
 	avatar: currentUser.avatar,
 	createdAt: getCurrentISODate(),
+	postId: "24",
+	parentId: null,
 	content:
 		"Atavus dolorem velit nam commemoro advoco succurro suppellex audax. Clamo cum attollo venustas adnuo. Vorago ullam tero.\nDemonstro saepe tantum auctus ademptio subito consequuntur quod vesper. Compono turbo cohors verbera ater. Eum comedo voluptate barba volva.\nDeporto bardus deludo celebrer avarus adulatio. Tutis acidus cupio cena auxilium vito. Vulpes undique casso quo conforto utroque carpo terreo caelestis carmen.",
 };
@@ -73,6 +75,6 @@ updateCommentFromPost("24", "36", {
 	console.log(comment);
 });
 
-createComment("24", newComment).then((comment) => {
+createComment(newComment).then((comment) => {
 	console.log(comment);
 });

@@ -26,6 +26,8 @@
 	--hover-color: #f7f7f7;
 	--background-color: #ffffff;
 
+	--greyed-text-color: hsl(from var(--disabled-color) h s calc(l - 30));
+
 	--spacing: 16px;
 	--surface-border-radius: 10px;
 	--actionable-border-radius: 15px;
@@ -47,7 +49,6 @@
 	--button-weight: var(--semi-bold-font-weight);
 	--small-button-height: 32px;
 	--large-button-height: 48px;
-
 }
 
 * {
@@ -100,7 +101,7 @@ body {
 }
 
 .deemphasizedText {
-	color: var(--disabled-color);
+	color: var(--greyed-text-color);
 }
 
 @media screen and (width <= 992px) {

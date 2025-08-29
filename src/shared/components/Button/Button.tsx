@@ -33,6 +33,7 @@ export const Button = ({
 		<button
 			className={classes}
 			onClick={(e) => {
+				e.preventDefault();
 				e.stopPropagation();
 				onClick();
 			}}
