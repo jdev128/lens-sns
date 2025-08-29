@@ -21,6 +21,8 @@ export const PostDetail = () => {
 				: Promise.reject("Id de publicacion no provisto"),
 	});
 
+	const fetchedPostId = postQuery.data?.id;
+
 	const commentsQuery = useQuery({
 		queryKey: ["postComments", postId],
 		queryFn: () =>
@@ -48,24 +50,27 @@ export const PostDetail = () => {
 			) : postQuery.data ? (
 				<PostCard data={postQuery.data} />
 			) : (
-				<p>No existe ninguna publicacion con el id facilitado</p>
+				<p>La publicacion que estas buscando no existe.</p>
 			)}
 			{
-			/* TODO: Hacer consulta solo en caso de que el post
+				/* TODO: Hacer consulta solo en caso de que el post
 			se obtenga correctamente */
-			commentsQuery.status === "pending" ? (
-				<p>Cargando...</p>
-			) : commentsQuery.status === "error" ? (
-				<p>Error: {commentsQuery.error.message}</p>
-			) : commentsQuery.data && (
-				<List>
-					{commentsQuery.data.map((comment) => (
-						<ListItem key={comment.id}>
-							<CommentCard data={comment}/>
-						</ListItem>
-					))}
-				</List>
-			)}
+				fetchedPostId && commentsQuery.status === "pending" ? (
+					<p>Cargando...</p>
+				) : commentsQuery.status === "error" ? (
+					<p>Error: {commentsQuery.error.message}</p>
+				) : (
+					commentsQuery.data && (
+						<List>
+							{commentsQuery.data.map((comment) => (
+								<ListItem key={comment.id}>
+									<CommentCard data={comment} />
+								</ListItem>
+							))}
+						</List>
+					)
+				)
+			}
 		</>
 	);
 };
