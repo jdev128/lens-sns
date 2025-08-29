@@ -4,9 +4,9 @@ import { getPosts } from "../../../../services/posts";
 import React from "react";
 import { useNavigate } from "react-router";
 import { PostCard } from "../../components/PostCard";
-import { List, ListItem } from "../../../../shared/components/List/List";
+import { List, ListItem } from "../../../../shared/components/List";
 import { Button } from "../../../../shared/components/Button";
-import styles from "./PostsList.module.css"
+import styles from "./PostsList.module.css";
 
 export const PostsList = () => {
 	const {
@@ -33,7 +33,7 @@ export const PostsList = () => {
 	const navigate = useNavigate();
 
 	return status === "pending" ? (
-		<p>Loading...</p>
+		<p>Cargando...</p>
 	) : status === "error" ? (
 		<p>Error: {error.message}</p>
 	) : (

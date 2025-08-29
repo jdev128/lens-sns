@@ -54,6 +54,7 @@
 
 .smallButton {
 	height: var(--small-button-height);
+	gap: calc(var(--spacing) / 2);
 	&.roundedButton {
 		width: var(--small-button-height);
 	}
