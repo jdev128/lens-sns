@@ -8,7 +8,7 @@ import { sendRequest } from "../shared/utils/httpRequests";
 const buildPostCommentsURL = (postId: string) =>
 	POST_COMMENTS_URL.replace(POST_ID_PLACEHOLDER, postId);
 
-const getLinkedComment = (
+const createLinkedComment = (
 	comment: Partial<Comment>,
 	postId: string,
 	parentCommentId: string | null
@@ -18,11 +18,12 @@ const getLinkedComment = (
 
 export const getCommentsFromPost = (
 	postId: string,
+	parentCommentId: string | null = null,
 	sortBy: string = "createdAt",
-	order: string = "desc"
-): Promise<Comment[]> =>
+	order: string = "desc",
+): Promise<Comment[] | null> =>
 	sendRequest(
-		`${buildPostCommentsURL(postId)}?sortBy=${sortBy}&order=${order}`
+		`${buildPostCommentsURL(postId)}?sortBy=${sortBy}&order=${order}&parentId=${parentCommentId}`
 	);
 
 export const createComment = (
@@ -33,7 +34,7 @@ export const createComment = (
 	sendRequest(
 		buildPostCommentsURL(postId),
 		"POST",
-		getLinkedComment(data, postId, parentCommentId ?? null)
+		createLinkedComment(data, postId, parentCommentId ?? null)
 	);
 
 export const deleteCommentFromPost = (

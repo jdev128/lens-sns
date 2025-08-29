@@ -10,7 +10,7 @@ export const getPosts = (
 ): Promise<Post[]> =>
 	sendRequest(`${POSTS_URL}?sortBy=${sortBy}&order=${order}&limit=${itemsPerPage}&page=${page}`);
 
-export const getPost = (postId: string): Promise<Post> =>
+export const getPost = (postId: string): Promise<Post | null> =>
 	sendRequest(`${POSTS_URL}/${postId}`);
 
 export const createPost = (post: Partial<Post>): Promise<Post> =>
