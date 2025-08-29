@@ -1,4 +1,5 @@
 import styles from "./Avatar.module.css";
+import defaultAvatar from "/src/assets/octicon_feed-person-16.png";
 
 interface Props {
 	imageURL: string;
@@ -14,5 +15,7 @@ export const Avatar = ({
 	let classes = `${styles.avatar} ${
 		size === "normal" ? "" : styles.smallAvatar
 	} ${withBorder ? styles.highlightedAvatar : ""}`;
-	return <img className={classes} src={imageURL} alt="" />;
+	return (
+		<img className={classes} src={imageURL ? imageURL : defaultAvatar} alt="" />
+	);
 };
