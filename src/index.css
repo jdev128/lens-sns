@@ -34,6 +34,7 @@
 
 	--navbar-height: 10dvh;
 	--sidebar-width: 20dvw;
+	--modal-width: 60dvw;
 
 	--regular-font-size: 1rem;
 	--clarification-font-size: 0.875em;
@@ -51,7 +52,6 @@
 	--large-button-height: 48px;
 
 	--app-font-family: "Inter", sans-serif;
-
 }
 
 * {
@@ -110,5 +110,6 @@ body {
 @media screen and (width <= 992px) {
 	:root {
 		--sidebar-width: 90dvw;
+		--modal-width: 90dvw;
 	}
 }
