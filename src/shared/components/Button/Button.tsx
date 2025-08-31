@@ -8,6 +8,7 @@ interface Props {
 	variant?: "solid" | "outlined" | "text" | "rounded";
 	size?: "large" | "regular" | "small";
 	expansible?: boolean;
+	hoverHint?: ReactNode;
 }
 
 export const Button = ({
@@ -17,6 +18,7 @@ export const Button = ({
 	variant = "solid",
 	size = "regular",
 	expansible = false,
+	hoverHint,
 }: Props) => {
 	let classes = [
 		styles.button,
@@ -40,6 +42,7 @@ export const Button = ({
 			disabled={disabled}
 		>
 			{children}
+			{hoverHint && (<div className={styles.hoverHint}>{hoverHint}</div>)}
 		</button>
 	);
 };

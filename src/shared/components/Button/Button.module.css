@@ -14,6 +14,7 @@
 	font-weight: var(--button-weight);
 	color: var(--font-color);
 	user-select: none;
+	position: relative;
 	&.roundedButton {
 		width: var(--button-height);
 	}
@@ -26,10 +27,16 @@
 .roundedButton {
 	border-radius: 50%;
 	padding-inline: 0;
+	.hoverHint {
+		border-radius: 50%;
+	}
 }
 
 .button:not(:disabled):hover {
 	background-color: rgb(from var(--on-primary-color) r g b / 15%);
+	.hoverHint {
+		opacity: 1;
+	}
 }
 
 .button:disabled {
@@ -37,7 +44,8 @@
 	color: var(--greyed-text-color);
 }
 
-.outlinedButton, .solidButton {
+.outlinedButton,
+.solidButton {
 	min-width: 100px;
 }
 
@@ -73,4 +81,19 @@
 	&.roundedButton {
 		width: var(--large-button-height);
 	}
+}
+
+.hoverHint {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgb(from var(--on-primary-color) r g b / 60%);
+	color: var(--on-primary-shade-color);
+	opacity: 0;
+	transition: all 0.4s ease;
+	border-radius: var(--actionable-border-radius);
 }
