@@ -5,13 +5,21 @@ import logo from "/src/assets/lens-logo.svg";
 import styles from "./Layout.module.css";
 import { Avatar } from "../Avatar";
 import { useUserContext } from "../../../context/UserContext";
-import { useLayoutEffect, useState } from "react";
+import { useCallback, useLayoutEffect, useState } from "react";
 import { MOBILE_BREAKPOINT } from "../../utils/constants/layout";
+import { Button } from "../Button";
+import { Plus } from "../../icons/Plus";
+import { CreateCommentDialog } from "../../../features/posts/components/CreateCommentDialog";
 
 export const Layout = () => {
 	let { user } = useUserContext();
 	const [isMobile, setIsMobile] = useState(false);
 
+	const [isDialogOpen, setIsDialogOpen] = useState(false);
+	const closeDialog = useCallback(() => {
+		setIsDialogOpen(false);
+	}, []);
+	
 	const updateLayout = () => {
 		setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
 	};
@@ -28,15 +36,28 @@ export const Layout = () => {
 		<>
 			<Navbar
 				homeIcon={logo}
-				endSection={<Avatar imageURL={user.avatar} withBorder />}
+				endSection={
+					<>
+						<Button
+							onClick={() => {
+								setIsDialogOpen(true);
+							}}
+						>
+							<Plus />
+							Crear
+						</Button>
+						<Avatar imageURL={user.avatar} withBorder />
+					</>
+				}
 			/>
 			<div className={styles.layout}>
-				<Sidebar collapsed={isMobile}/>
+				<Sidebar collapsed={isMobile} />
 				<main>
 					<Outlet />
 				</main>
-				<Sidebar collapsed={isMobile}/>
+				<Sidebar collapsed={isMobile} />
 			</div>
+			<CreateCommentDialog open={isDialogOpen} onClose={closeDialog} />
 		</>
 	);
 };

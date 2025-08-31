@@ -19,7 +19,7 @@ podman build -t lens-sns .
 Ahora solo resta iniciar el servidor:
 
 ```bash
-podman run --name lens-sns-frontend -d -p 8080:80 lens-sns
+podman run --replace --name lens-sns-frontend -d -p 8080:80 lens-sns
 ```
 
 Listo, ya tienes todo en condiciones para poder navegar por la aplicacion a traves de este [enlace](http://localhost:8080/).

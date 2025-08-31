@@ -1,4 +1,4 @@
-import { memo, type ReactNode } from "react";
+import { memo, useRef, type ReactNode } from "react";
 import styles from "./TextArea.module.css";
 
 interface Props {
@@ -25,6 +25,7 @@ export const TextArea = memo(
 		rows,
 		actions,
 	}: Props) => {
+		const textArea = useRef<HTMLTextAreaElement>(null);
 		return (
 			<>
 				{(label || maxLength) && (
@@ -41,8 +42,14 @@ export const TextArea = memo(
 						)}
 					</div>
 				)}
-				<div className={styles.textareaContainer}>
+				<div
+					className={styles.textareaContainer}
+					onClick={() => {
+						textArea.current?.focus();
+					}}
+				>
 					<textarea
+						ref={textArea}
 						className={styles.textarea}
 						name={name}
 						id={name}

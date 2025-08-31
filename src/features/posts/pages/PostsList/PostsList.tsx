@@ -7,6 +7,7 @@ import { PostCard } from "../../components/PostCard";
 import { List, ListItem } from "../../../../shared/components/List";
 import { Button } from "../../../../shared/components/Button";
 import styles from "./PostsList.module.css";
+import { DEFAULT_PAGE_SIZE } from "../../../../shared/utils/constants/services";
 
 export const PostsList = () => {
 	const {
@@ -19,15 +20,11 @@ export const PostsList = () => {
 		status,
 	} = useInfiniteQuery({
 		queryKey: ["posts"],
-		queryFn: ({ pageParam }) => getPosts(pageParam, 5),
+		queryFn: ({ pageParam }) => getPosts(pageParam),
 		initialPageParam: 1,
 		maxPages: 10,
-		getNextPageParam: (lastPage, [], lastPageParam) => {
-			if (lastPage.length === 0) {
-				return undefined;
-			}
-			return lastPageParam + 1;
-		},
+		getNextPageParam: (lastPage, [], lastPageParam) =>
+			lastPage.length < DEFAULT_PAGE_SIZE ? undefined : lastPageParam + 1,
 	});
 
 	const navigate = useNavigate();

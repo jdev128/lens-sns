@@ -21,12 +21,13 @@ let currentUser: User = {
 	avatar: "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/05/055874a3352a2b8bede001a85391b2c8594d7b71_full.jpg",
 };
 
-let newPost: Partial<Post> = {
+let newPost: Omit<Post, "id"> = {
 	name: currentUser.name,
 	avatar: currentUser.avatar,
 	content:
 		"Lorem ipsum dolor sit amet consectetur. Felis diam amet ultrices adipiscing blandit purus. Cras adipiscing nisl tortor pretium. Sagittis morbi in malesuada lorem eget lacus mauris laoreet. Imperdiet est dui egestas et vel pellentesque sagittis ultricies at. Quis et enim eget tincidunt. Mauris donec ornare tincidunt facilisis elementum augue lorem. In sed id scelerisque vulputate. Pellentesque tellus massa malesuada nunc scelerisque dolor condimentum. Curabitur ut tellus id egestas lacus.",
 	title: "Un dia especial para tirar codigo de sol a sol",
+	createdAt: getCurrentISODate(),
 };
 
 let newComment: Omit<Comment, "id"> = {

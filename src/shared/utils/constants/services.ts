@@ -15,3 +15,5 @@ export const VALID_HTTP_METHODS: ReadonlyArray<string> = [
 	"PATCH",
 	"DELETE",
 ];
+
+export const DEFAULT_PAGE_SIZE = 5;

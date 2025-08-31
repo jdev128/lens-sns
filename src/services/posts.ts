@@ -1,10 +1,10 @@
 import type { Post } from "../shared/types/Post";
-import { POSTS_URL } from "../shared/utils/constants/services";
+import { DEFAULT_PAGE_SIZE, POSTS_URL } from "../shared/utils/constants/services";
 import { sendRequest } from "../shared/utils/httpRequests";
 
 export const getPosts = (
 	page: number,
-	itemsPerPage: number = 5,
+	itemsPerPage: number = DEFAULT_PAGE_SIZE,
 	sortBy: string = "createdAt",
 	order: string = "desc"
 ): Promise<Post[]> =>
@@ -13,7 +13,7 @@ export const getPosts = (
 export const getPost = (postId: string): Promise<Post | null> =>
 	sendRequest(`${POSTS_URL}/${postId}`);
 
-export const createPost = (post: Partial<Post>): Promise<Post> =>
+export const createPost = (post: Omit<Post, "id">): Promise<Post> =>
 	sendRequest(POSTS_URL, "POST", post);
 
 export const deletePost = (postId: string): Promise<Post> =>

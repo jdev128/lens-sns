@@ -19,6 +19,7 @@
 
 .logo {
 	height: 32px;
+	user-select: none;
 }
 
 .content {
