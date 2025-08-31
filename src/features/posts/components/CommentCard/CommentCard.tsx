@@ -64,7 +64,7 @@ export const CommentCard = ({ data }: Props) => {
 						</Button>
 					}
 				>
-					<Avatar imageURL={data.avatar} />
+					<Avatar imageURL={data.avatar} size="small"/>
 					<div>
 						<div className="emphasizedText">{data.name}</div>
 						<div className="clarificationText">

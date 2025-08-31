@@ -10,16 +10,17 @@ import { MOBILE_BREAKPOINT } from "../../utils/constants/layout";
 import { Button } from "../Button";
 import { Plus } from "../../icons/Plus";
 import { CreateCommentDialog } from "../../../features/posts/components/CreateCommentDialog";
+import { RefreshIcon } from "../../icons/RefreshIcon";
 
 export const Layout = () => {
-	let { user } = useUserContext();
+	let { user, randomizeUser } = useUserContext();
 	const [isMobile, setIsMobile] = useState(false);
 
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 	const closeDialog = useCallback(() => {
 		setIsDialogOpen(false);
 	}, []);
-	
+
 	const updateLayout = () => {
 		setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
 	};
@@ -46,7 +47,18 @@ export const Layout = () => {
 							<Plus />
 							Crear
 						</Button>
-						<Avatar imageURL={user.avatar} withBorder />
+						<Button
+							onClick={randomizeUser}
+							variant="rounded"
+							size="large"
+							hoverHint={
+								<RefreshIcon
+									size="22px"
+								></RefreshIcon>
+							}
+						>
+							<Avatar imageURL={user.avatar} withBorder />
+						</Button>
 					</>
 				}
 			/>
