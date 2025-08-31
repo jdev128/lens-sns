@@ -5,37 +5,42 @@
 
 :root {
 	--primary-color: #009688;
-	--on-primary-color: #000000;
+	--on-primary-color: #171717;
 	--primary-shade-color: #00796b;
-	--on-primary-shade-color: #ffffff;
+	--on-primary-shade-color: #fafafa;
 	--primary-light-color: #4db6ac;
-	--on-primary-light-color: #000000;
+	--on-primary-light-color: #171717;
 	--secondary-color: #00daab;
-	--on-secondary-color: #000000;
+	--on-secondary-color: #171717;
 	--secondary-shade-color: #00b788;
-	--on-secondary-shade-color: #000000;
+	--on-secondary-shade-color: #171717;
 	--secondary-light-color: #00efc8;
-	--on-secondary-light-color: #000000;
+	--on-secondary-light-color: #171717;
+
 	--error-color: #b00020;
-	--on-error-color: #ffffff;
+	--on-error-color: #fafafa;
 	--success-color: var(--secondary-shade-color);
 	--on-success-color: var(--on-secondary-shade-color);
+
 	--disabled-color: #d1d1d1;
-	--on-disabled-color: #000000;
+	--on-disabled-color: #171717;
 
-	--hover-color: #f7f7f7;
-	--background-color: #ffffff;
+	--greyed-text-color: hsl(from #d1d1d1 h s calc(l - 30));
 
-	--greyed-text-color: hsl(from var(--disabled-color) h s calc(l - 30));
-
+	/* Layout variables */
+	--background-color: #fafafa;
+	--font-color: #171717;
 	--spacing: 16px;
 	--surface-border-radius: 10px;
 	--actionable-border-radius: 15px;
-
 	--navbar-height: 10dvh;
 	--sidebar-width: 20dvw;
 	--modal-width: 60dvw;
+	--hover-color: hsl(from var(--background-color) h s calc(l - 10));
+	--box-shadow: 1px 1px 3px hsl(from var(--background-color) h s calc(l - 40));
 
+	/* Fonts variables */
+	--app-font-family: "Inter", sans-serif;
 	--regular-font-size: 1rem;
 	--clarification-font-size: 0.875em;
 	--title-font-size: 1.125em;
@@ -46,12 +51,23 @@
 	--semi-bold-font-weight: 600;
 	--bold-font-weight: 700;
 
+	/* Elements variables */
 	--button-height: 40px;
 	--button-weight: var(--semi-bold-font-weight);
 	--small-button-height: 32px;
 	--large-button-height: 48px;
+}
 
-	--app-font-family: "Inter", sans-serif;
+/* To delete blue highlight on Chrome for mobile devices */
+html {
+	-webkit-tap-highlight-color: transparent;
+}
+
+body {
+	font-size: var(--regular-font-size);
+	font-weight: var(--regular-font-weight);
+	background-color: var(--background-color);
+	color: var(--font-color);
 }
 
 * {
@@ -59,11 +75,6 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-family: var(--app-font-family);
-}
-
-body {
-	font-size: var(--regular-font-size);
-	font-weight: var(--regular-font-weight);
 }
 
 /* 
@@ -111,5 +122,18 @@ body {
 	:root {
 		--sidebar-width: 90dvw;
 		--modal-width: 90dvw;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background-color: #212121;
+		--font-color: #fafafa;
+		--hover-color: hsl(from var(--background-color) h s calc(l + 10));
+		--box-shadow: 2px 2px 5px
+			hsl(from var(--background-color) h s calc(l + 10));
+
+		--error-color: hsl(from #b00020 h s calc(l + 10));
+		--disabled-color: hsl(from #d1d1d1 h s calc(l - 40));
 	}
 }

@@ -48,7 +48,7 @@ export const PostCard = ({ data, shortFormat = false, onClick }: Props) => {
 						onClick={() => deletePostMutation.mutate(data.id)}
 					>
 						{/* TODO: Replace with ellipsis, popover and list of buttons*/}
-						<Trash size="20px" color="#b00020" />
+						<Trash size="20px" color="var(--error-color)" />
 					</Button>
 				}
 			>

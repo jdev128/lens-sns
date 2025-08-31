@@ -1,12 +1,13 @@
 .avatar {
-    border-radius: 50%;
-    height: 40px;
+	border-radius: 50%;
+	height: 40px;
+	user-select: none;
 }
 
 .smallAvatar {
-    height: 32px;
+	height: 32px;
 }
 
 .highlightedAvatar {
-    border: 2px solid var(--secondary-light-color);
+	border: 2px solid var(--secondary-light-color);
 }
