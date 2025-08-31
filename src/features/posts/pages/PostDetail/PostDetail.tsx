@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { Button } from "../../../../shared/components/Button";
 import { ChevronLeft } from "../../../../shared/icons/ChevronLeft";
 import { PostCard } from "../../components/PostCard";
@@ -12,7 +12,7 @@ import {
 import { List, ListItem } from "../../../../shared/components/List";
 import { CommentCard } from "../../components/CommentCard";
 import { TextArea } from "../../../../shared/components/TextArea";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createNewCommentBody } from "../../../../shared/utils/services";
 import { useUserContext } from "../../../../context/UserContext";
 
@@ -23,8 +23,17 @@ export const PostDetail = () => {
 	}, []);
 
 	const navigate = useNavigate();
+	const location = useLocation();
 	let { postId } = useParams();
 	const { user } = useUserContext();
+
+	const resetCommentField = () => {
+		setNewCommentContent("")
+	}
+
+	useEffect(() => {
+	  resetCommentField()
+	}, [location])
 
 	const queryClient = useQueryClient();
 
@@ -52,7 +61,7 @@ export const PostDetail = () => {
 			console.info(
 				`Se creo correctamente el comentario con id ${data.id}`
 			);
-			setNewCommentContent("");
+			resetCommentField();
 			queryClient.invalidateQueries({
 				queryKey: ["postComments", data.postId],
 			});
@@ -87,10 +96,11 @@ export const PostDetail = () => {
 					<div className={styles.textAreaContainer}>
 						<TextArea
 							minLength={20}
-							placeholder="¿Que quieres compartir con el mundo?"
+							placeholder="Continua la conversacion"
 							name="commentContent"
 							value={newCommentContent}
 							onChange={changeCommentContent}
+							rows={4}
 							actions={
 								<Button
 									size="small"

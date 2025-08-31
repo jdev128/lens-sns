@@ -6,10 +6,10 @@ interface Props {
 	placeholder: string;
 	value: string;
 	onChange: (newValue: string) => void;
+	rows: number;
 	label?: string;
 	minLength?: number;
 	maxLength?: number;
-	rows?: number;
 	actions?: ReactNode;
 }
 

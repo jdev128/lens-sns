@@ -37,7 +37,7 @@ body:has(.dialog[open]) {
 }
 
 .dialogFooter {
-	bottom: 0;
+	bottom: -1px;
 	justify-content: end;
 	background-color: var(--background-color);
 }
