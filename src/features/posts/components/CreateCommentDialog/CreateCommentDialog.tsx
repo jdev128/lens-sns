@@ -7,6 +7,11 @@ import {
 	DialogHeader,
 } from "../../../../shared/components/Dialog";
 import { TextArea } from "../../../../shared/components/TextArea";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createPost } from "../../../../services/posts";
+import { createNewPostBody } from "../../../../shared/utils/services";
+import { useUserContext } from "../../../../context/UserContext";
+import { useNavigate } from "react-router";
 
 interface Props {
 	open: boolean;
@@ -17,26 +22,39 @@ export const CreateCommentDialog = ({ open, onClose }: Props) => {
 	const [postTitle, setPostTitle] = useState("");
 	const [postComment, setPostComment] = useState("");
 
-	const resetFields = () => {
+	const { user } = useUserContext();
+	const navigate = useNavigate();
+
+	const closeDialog = () => {
 		setPostTitle("");
 		setPostComment("");
+		onClose();
 	};
+
+	const queryClient = useQueryClient();
+	const createPostMutation = useMutation({
+		mutationFn: createPost,
+		onSuccess: (data) => {
+			console.info(
+				`Se creo correctamente la publicacion con id ${data.id}`
+			);
+			queryClient.invalidateQueries({
+				queryKey: ["posts"],
+			});
+			navigate(`/post/${data.id}`);
+			closeDialog();
+		},
+		onError: (error) => {
+			console.error(
+				`Ocurrio el siguiente error al intentar crear la publicacion:`,
+				error.message
+			);
+		},
+	});
+
 	return (
-		<Dialog
-			open={open}
-			onClose={() => {
-				onClose();
-				resetFields();
-			}}
-		>
-			<DialogHeader
-				onClose={() => {
-					onClose();
-					resetFields();
-				}}
-			>
-				Crear publicacion
-			</DialogHeader>
+		<Dialog open={open} onClose={closeDialog}>
+			<DialogHeader onClose={closeDialog}>Crear publicacion</DialogHeader>
 			<DialogContent>
 				<TextArea
 					label="Titulo"
@@ -55,16 +73,19 @@ export const CreateCommentDialog = ({ open, onClose }: Props) => {
 				/>
 			</DialogContent>
 			<DialogFooter>
-				<Button
-					variant="outlined"
-					onClick={() => {
-						onClose();
-						resetFields();
-					}}
-				>
+				<Button variant="outlined" onClick={closeDialog}>
 					Cancelar
 				</Button>
-				<Button onClick={() => {}}>Publicar</Button>
+				<Button
+					disabled={!postTitle || !postComment}
+					onClick={() =>
+						createPostMutation.mutate(
+							createNewPostBody(user, postTitle, postComment)
+						)
+					}
+				>
+					Publicar
+				</Button>
 			</DialogFooter>
 		</Dialog>
 	);

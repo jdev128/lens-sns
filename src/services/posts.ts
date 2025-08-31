@@ -13,7 +13,7 @@ export const getPosts = (
 export const getPost = (postId: string): Promise<Post | null> =>
 	sendRequest(`${POSTS_URL}/${postId}`);
 
-export const createPost = (post: Partial<Post>): Promise<Post> =>
+export const createPost = (post: Omit<Post, "id">): Promise<Post> =>
 	sendRequest(POSTS_URL, "POST", post);
 
 export const deletePost = (postId: string): Promise<Post> =>
