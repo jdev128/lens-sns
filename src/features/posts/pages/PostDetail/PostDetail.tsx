@@ -96,7 +96,7 @@ export const PostDetail = () => {
 					<div className={styles.textAreaContainer}>
 						<TextArea
 							minLength={20}
-							placeholder="Continua la conversacion"
+							placeholder="Unete a la conversacion"
 							name="commentContent"
 							value={newCommentContent}
 							onChange={changeCommentContent}
