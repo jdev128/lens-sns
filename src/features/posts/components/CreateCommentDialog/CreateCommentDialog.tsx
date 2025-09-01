@@ -59,17 +59,19 @@ export const CreateCommentDialog = ({ open, onClose }: Props) => {
 				<TextArea
 					label="Titulo"
 					name="postTitle"
-					placeholder="Un titulo memorable"
+					placeholder="Elige un titulo memorable"
 					value={postTitle}
 					onChange={setPostTitle}
 					maxLength={100}
+					rows={3}
 				/>
 				<TextArea
 					label="Cuerpo"
 					name="postContent"
-					placeholder="¿Que quieres compartir con el mundo?"
+					placeholder="¿Que quieres compartir hoy?"
 					value={postComment}
 					onChange={setPostComment}
+					rows={10}
 				/>
 			</DialogContent>
 			<DialogFooter>

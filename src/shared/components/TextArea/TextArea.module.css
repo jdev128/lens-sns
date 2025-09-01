@@ -28,9 +28,7 @@
 	width: 100%;
 	outline: none;
 	border: none;
-	resize: none;
-	overflow: hidden;
-	field-sizing: content;
+	overflow-x: hidden;
 	word-break: break-all;
 	font-size: var(--clarification-font-size);
 	background-color: var(--background-color);
@@ -41,10 +39,6 @@
 	}
 }
 
-.textarea[rows] {
-	field-sizing: fixed;
-}
-
 .characterCounter,
 .label {
 	padding-block: var(--spacing);
@@ -53,4 +47,12 @@
 
 .textareaActions {
 	margin-block-start: var(--spacing);
+}
+
+@supports (resize: none) and (field-sizing: content) {
+	.textarea {
+		resize: none;
+		field-sizing: content;
+		overflow-y: hidden;
+	}
 }
