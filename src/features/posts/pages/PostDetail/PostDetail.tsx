@@ -7,6 +7,7 @@ import { getPost } from "../../../../services/posts";
 import styles from "./PostDetail.module.css";
 import {
 	createComment,
+	deleteCommentFromPost,
 	getCommentsFromPost,
 } from "../../../../services/comments";
 import { List, ListItem } from "../../../../shared/components/List";
@@ -15,6 +16,8 @@ import { TextArea } from "../../../../shared/components/TextArea";
 import { useCallback, useEffect, useState } from "react";
 import { createNewCommentBody } from "../../../../shared/utils/services";
 import { useUserContext } from "../../../../context/UserContext";
+import type { Comment } from "../../../../shared/types/Comment";
+import { usePostDeletion } from "../../../../hooks/mutations";
 
 export const PostDetail = () => {
 	const [newCommentContent, setNewCommentContent] = useState("");
@@ -26,6 +29,12 @@ export const PostDetail = () => {
 	const location = useLocation();
 	let { postId } = useParams();
 	const { user } = useUserContext();
+
+	const navigateBack = () => {
+		location.key === "default"
+			? navigate("/", { replace: true })
+			: navigate(-1);
+	};
 
 	const resetCommentField = () => {
 		setNewCommentContent("");
@@ -74,14 +83,35 @@ export const PostDetail = () => {
 		},
 	});
 
+	const deleteCommentMutation = useMutation<
+		Comment,
+		Error,
+		{ postId: string; commentId: string }
+	>({
+		mutationFn: ({ postId, commentId }) =>
+			deleteCommentFromPost(postId, commentId),
+		onSuccess: (data) => {
+			console.info(
+				`Se elimino correctamente el comentario con id ${data.id}`
+			);
+			queryClient.invalidateQueries({
+				queryKey: ["postComments", data.postId],
+			});
+		},
+		onError: (error, variables) => {
+			console.error(
+				`Ocurrio el siguiente error al intentar eliminar el comentario con id ${variables}:`,
+				error.message
+			);
+		},
+	});
+
+	const { mutate: deletePost } = usePostDeletion(navigateBack);
+
 	return (
 		<>
 			<header className={styles.header}>
-				<Button
-					variant="text"
-					size="small"
-					onClick={() => navigate(-1)}
-				>
+				<Button variant="text" size="small" onClick={navigateBack}>
 					<ChevronLeft size="18px" />
 					Volver
 				</Button>
@@ -95,6 +125,9 @@ export const PostDetail = () => {
 					<PostCard
 						data={postQuery.data}
 						editable={postQuery.data.name === user.name}
+						onDeletion={() => {
+							postQuery.data && deletePost(postQuery.data.id);
+						}}
 					/>
 					<div className={styles.textAreaContainer}>
 						<TextArea
@@ -140,7 +173,16 @@ export const PostDetail = () => {
 						<List>
 							{commentsQuery.data.map((comment) => (
 								<ListItem key={comment.id}>
-									<CommentCard data={comment} editable={comment.name === user.name} />
+									<CommentCard
+										data={comment}
+										editable={comment.name === user.name}
+										onDeletion={() =>
+											deleteCommentMutation.mutate({
+												postId: comment.postId,
+												commentId: comment.id,
+											})
+										}
+									/>
 								</ListItem>
 							))}
 						</List>

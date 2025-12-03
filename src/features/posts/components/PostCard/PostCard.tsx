@@ -12,14 +12,13 @@ import {
 } from "../../../../shared/utils/dates";
 import { Button } from "../../../../shared/components/Button";
 import { Trash } from "../../../../shared/icons/Trash";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deletePost } from "../../../../services/posts";
 
 interface Props {
 	data: Post;
 	shortFormat?: boolean;
 	editable?: boolean;
 	onClick?: () => void;
+	onDeletion?: () => void;
 }
 
 export const PostCard = ({
@@ -27,32 +26,14 @@ export const PostCard = ({
 	shortFormat = false,
 	editable = true,
 	onClick,
+	onDeletion = () => {},
 }: Props) => {
-	const queryClient = useQueryClient();
-
-	const deletePostMutation = useMutation({
-		mutationFn: deletePost,
-		onSuccess: (data) => {
-			console.info(`Se elimino correctamente el post con id ${data.id}`);
-			queryClient.invalidateQueries({ queryKey: ["posts"] });
-		},
-		onError: (error, variables) => {
-			console.error(
-				`Ocurrio el siguiente error al intentar eliminar el post con id ${variables}:`,
-				error.message
-			);
-		},
-	});
-
 	return (
 		<Card onClick={onClick}>
 			<CardHeader
 				endAction={
 					editable && (
-						<Button
-							variant="rounded"
-							onClick={() => deletePostMutation.mutate(data.id)}
-						>
+						<Button variant="rounded" onClick={onDeletion}>
 							{/* TODO: Replace with ellipsis, popover and list of buttons*/}
 							<Trash size="20px" color="var(--error-color)" />
 						</Button>

@@ -9,6 +9,7 @@ import { Button } from "../../../../shared/components/Button";
 import styles from "./PostsList.module.css";
 import { DEFAULT_PAGE_SIZE } from "../../../../shared/utils/constants/services";
 import { useUserContext } from "../../../../context/UserContext";
+import { usePostDeletion } from "../../../../hooks/mutations";
 
 export const PostsList = () => {
 	const {
@@ -28,6 +29,8 @@ export const PostsList = () => {
 			lastPage.length < DEFAULT_PAGE_SIZE ? undefined : lastPageParam + 1,
 	});
 
+	const { mutate: deletePost } = usePostDeletion();
+
 	const navigate = useNavigate();
 	const { user } = useUserContext();
 
@@ -46,6 +49,7 @@ export const PostsList = () => {
 									data={post}
 									shortFormat
 									editable={post.name === user.name}
+									onDeletion={() => deletePost(post.id)}
 									onClick={() => navigate(`/post/${post.id}`)}
 								/>
 							</ListItem>
