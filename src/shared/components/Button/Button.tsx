@@ -9,6 +9,7 @@ interface Props {
 	size?: "large" | "regular" | "small";
 	expansible?: boolean;
 	hoverHint?: ReactNode;
+	ariaLabel?: string;
 }
 
 export const Button = ({
@@ -19,6 +20,7 @@ export const Button = ({
 	size = "regular",
 	expansible = false,
 	hoverHint,
+	ariaLabel
 }: Props) => {
 	let classes = [
 		styles.button,
@@ -40,6 +42,7 @@ export const Button = ({
 				onClick();
 			}}
 			disabled={disabled}
+			aria-label={ariaLabel}
 		>
 			{children}
 			{hoverHint && (<div className={styles.hoverHint}>{hoverHint}</div>)}

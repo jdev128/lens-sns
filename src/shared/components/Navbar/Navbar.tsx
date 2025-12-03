@@ -11,7 +11,7 @@ interface Props {
 export const Navbar = ({ homeIcon, children, endSection }: Props) => {
 	return (
 		<header className={styles.navbar}>
-			<Link to="/">
+			<Link to="/" aria-label="Ir a página de inicio">
 				<img className={styles.logo} src={homeIcon} alt="" />
 			</Link>
 			<nav className={styles.content}>{children}</nav>

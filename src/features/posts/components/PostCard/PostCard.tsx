@@ -33,7 +33,11 @@ export const PostCard = ({
 			<CardHeader
 				endAction={
 					editable && (
-						<Button variant="rounded" onClick={onDeletion}>
+						<Button
+							variant="rounded"
+							onClick={onDeletion}
+							ariaLabel="Eliminar publicación"
+						>
 							{/* TODO: Replace with ellipsis, popover and list of buttons*/}
 							<Trash size="20px" color="var(--error-color)" />
 						</Button>

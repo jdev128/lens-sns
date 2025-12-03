@@ -19,8 +19,11 @@ interface Props {
 	onDeletion?: () => void;
 }
 
-export const CommentCard = ({ data, editable = true, onDeletion = () => {} }: Props) => {
-
+export const CommentCard = ({
+	data,
+	editable = true,
+	onDeletion = () => {},
+}: Props) => {
 	return (
 		<div className={styles.commentCard}>
 			<Card>
@@ -30,6 +33,7 @@ export const CommentCard = ({ data, editable = true, onDeletion = () => {} }: Pr
 							<Button
 								variant="rounded"
 								onClick={onDeletion}
+								ariaLabel="Eliminar comentario"
 							>
 								{/* TODO: Replace with ellipsis, popover and list of buttons*/}
 								<Trash size="20px" color="var(--error-color)" />
