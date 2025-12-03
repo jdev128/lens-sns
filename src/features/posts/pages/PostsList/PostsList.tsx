@@ -8,6 +8,7 @@ import { List, ListItem } from "../../../../shared/components/List";
 import { Button } from "../../../../shared/components/Button";
 import styles from "./PostsList.module.css";
 import { DEFAULT_PAGE_SIZE } from "../../../../shared/utils/constants/services";
+import { useUserContext } from "../../../../context/UserContext";
 
 export const PostsList = () => {
 	const {
@@ -28,6 +29,7 @@ export const PostsList = () => {
 	});
 
 	const navigate = useNavigate();
+	const { user } = useUserContext();
 
 	return status === "pending" ? (
 		<p>Cargando...</p>
@@ -43,6 +45,7 @@ export const PostsList = () => {
 								<PostCard
 									data={post}
 									shortFormat
+									editable={post.name === user.name}
 									onClick={() => navigate(`/post/${post.id}`)}
 								/>
 							</ListItem>

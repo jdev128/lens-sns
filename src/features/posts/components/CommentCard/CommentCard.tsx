@@ -17,9 +17,10 @@ import styles from "./CommentCard.module.css";
 
 interface Props {
 	data: Comment;
+	editable?: boolean;
 }
 
-export const CommentCard = ({ data }: Props) => {
+export const CommentCard = ({ data, editable = true }: Props) => {
 	const queryClient = useQueryClient();
 
 	const deleteCommentMutation = useMutation<
@@ -50,21 +51,23 @@ export const CommentCard = ({ data }: Props) => {
 			<Card>
 				<CardHeader
 					endAction={
-						<Button
-							variant="rounded"
-							onClick={() =>
-								deleteCommentMutation.mutate({
-									postId: data.postId,
-									commentId: data.id,
-								})
-							}
-						>
-							{/* TODO: Replace with ellipsis, popover and list of buttons*/}
-							<Trash size="20px" color="var(--error-color)" />
-						</Button>
+						editable && (
+							<Button
+								variant="rounded"
+								onClick={() =>
+									deleteCommentMutation.mutate({
+										postId: data.postId,
+										commentId: data.id,
+									})
+								}
+							>
+								{/* TODO: Replace with ellipsis, popover and list of buttons*/}
+								<Trash size="20px" color="var(--error-color)" />
+							</Button>
+						)
 					}
 				>
-					<Avatar imageURL={data.avatar} size="small"/>
+					<Avatar imageURL={data.avatar} size="small" />
 					<div>
 						<div className="emphasizedText">{data.name}</div>
 						<div className="clarificationText">

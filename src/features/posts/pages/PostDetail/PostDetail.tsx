@@ -28,12 +28,12 @@ export const PostDetail = () => {
 	const { user } = useUserContext();
 
 	const resetCommentField = () => {
-		setNewCommentContent("")
-	}
+		setNewCommentContent("");
+	};
 
 	useEffect(() => {
-	  resetCommentField()
-	}, [location])
+		resetCommentField();
+	}, [location]);
 
 	const queryClient = useQueryClient();
 
@@ -92,7 +92,10 @@ export const PostDetail = () => {
 				<p>Error: {postQuery.error.message}</p>
 			) : fetchedPostId && postQuery.data ? (
 				<>
-					<PostCard data={postQuery.data} />
+					<PostCard
+						data={postQuery.data}
+						editable={postQuery.data.name === user.name}
+					/>
 					<div className={styles.textAreaContainer}>
 						<TextArea
 							minLength={20}
@@ -137,7 +140,7 @@ export const PostDetail = () => {
 						<List>
 							{commentsQuery.data.map((comment) => (
 								<ListItem key={comment.id}>
-									<CommentCard data={comment} />
+									<CommentCard data={comment} editable={comment.name === user.name} />
 								</ListItem>
 							))}
 						</List>

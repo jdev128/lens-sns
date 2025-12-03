@@ -18,11 +18,16 @@ import { deletePost } from "../../../../services/posts";
 interface Props {
 	data: Post;
 	shortFormat?: boolean;
+	editable?: boolean;
 	onClick?: () => void;
 }
 
-export const PostCard = ({ data, shortFormat = false, onClick }: Props) => {
-
+export const PostCard = ({
+	data,
+	shortFormat = false,
+	editable = true,
+	onClick,
+}: Props) => {
 	const queryClient = useQueryClient();
 
 	const deletePostMutation = useMutation({
@@ -43,13 +48,15 @@ export const PostCard = ({ data, shortFormat = false, onClick }: Props) => {
 		<Card onClick={onClick}>
 			<CardHeader
 				endAction={
-					<Button
-						variant="rounded"
-						onClick={() => deletePostMutation.mutate(data.id)}
-					>
-						{/* TODO: Replace with ellipsis, popover and list of buttons*/}
-						<Trash size="20px" color="var(--error-color)" />
-					</Button>
+					editable && (
+						<Button
+							variant="rounded"
+							onClick={() => deletePostMutation.mutate(data.id)}
+						>
+							{/* TODO: Replace with ellipsis, popover and list of buttons*/}
+							<Trash size="20px" color="var(--error-color)" />
+						</Button>
+					)
 				}
 			>
 				<Avatar imageURL={data.avatar} />
