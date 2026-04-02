@@ -2,9 +2,9 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import "./PostsList.module.css";
 import { getPosts } from "../../../../services/posts";
 import React from "react";
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 import { PostCard } from "../../components/PostCard";
-import { List, ListItem } from "../../../../shared/components/List";
+import { List } from "../../../../shared/components/List";
 import { Button } from "../../../../shared/components/Button";
 import styles from "./PostsList.module.css";
 import { DEFAULT_PAGE_SIZE } from "../../../../shared/utils/constants/services";
@@ -31,7 +31,6 @@ export const PostsList = () => {
 
 	const { mutate: deletePost } = usePostDeletion();
 
-	const navigate = useNavigate();
 	const { user } = useUserContext();
 
 	return status === "pending" ? (
@@ -40,19 +39,18 @@ export const PostsList = () => {
 		<p>Error: {error.message}</p>
 	) : (
 		<>
-			<List>
+			<List interactive>
 				{data.pages.map((group, i) => (
 					<React.Fragment key={i}>
 						{group.map((post) => (
-							<ListItem key={post.id}>
+							<Link to={`/post/${post.id}`} key={post.id}>
 								<PostCard
 									data={post}
 									shortFormat
 									editable={post.name === user.name}
 									onDeletion={() => deletePost(post.id)}
-									onClick={() => navigate(`/post/${post.id}`)}
 								/>
-							</ListItem>
+							</Link>
 						))}
 					</React.Fragment>
 				))}
@@ -67,8 +65,8 @@ export const PostsList = () => {
 					{isFetchingNextPage
 						? "Cargando..."
 						: hasNextPage
-						? "Cargar mas publicaciones"
-						: "Llegaste al final"}
+							? "Cargar mas publicaciones"
+							: "Llegaste al final"}
 				</Button>
 			</div>
 		</>

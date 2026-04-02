@@ -10,7 +10,7 @@ import {
 	deleteCommentFromPost,
 	getCommentsFromPost,
 } from "../../../../services/comments";
-import { List, ListItem } from "../../../../shared/components/List";
+import { List } from "../../../../shared/components/List";
 import { CommentCard } from "../../components/CommentCard";
 import { TextArea } from "../../../../shared/components/TextArea";
 import { useCallback, useEffect, useState } from "react";
@@ -68,7 +68,7 @@ export const PostDetail = () => {
 		mutationFn: createComment,
 		onSuccess: (data) => {
 			console.info(
-				`Se creo correctamente el comentario con id ${data.id}`
+				`Se creo correctamente el comentario con id ${data.id}`,
 			);
 			resetCommentField();
 			queryClient.invalidateQueries({
@@ -78,7 +78,7 @@ export const PostDetail = () => {
 		onError: (error) => {
 			console.error(
 				`Ocurrio el siguiente error al intentar crear el comentario:`,
-				error.message
+				error.message,
 			);
 		},
 	});
@@ -92,7 +92,7 @@ export const PostDetail = () => {
 			deleteCommentFromPost(postId, commentId),
 		onSuccess: (data) => {
 			console.info(
-				`Se elimino correctamente el comentario con id ${data.id}`
+				`Se elimino correctamente el comentario con id ${data.id}`,
 			);
 			queryClient.invalidateQueries({
 				queryKey: ["postComments", data.postId],
@@ -101,7 +101,7 @@ export const PostDetail = () => {
 		onError: (error, variables) => {
 			console.error(
 				`Ocurrio el siguiente error al intentar eliminar el comentario con id ${variables}:`,
-				error.message
+				error.message,
 			);
 		},
 	});
@@ -147,8 +147,8 @@ export const PostDetail = () => {
 												fetchedPostId,
 												user,
 												newCommentContent,
-												undefined
-											)
+												undefined,
+											),
 										);
 									}}
 								>
@@ -172,18 +172,17 @@ export const PostDetail = () => {
 					commentsQuery.data && (
 						<List>
 							{commentsQuery.data.map((comment) => (
-								<ListItem key={comment.id}>
-									<CommentCard
-										data={comment}
-										editable={comment.name === user.name}
-										onDeletion={() =>
-											deleteCommentMutation.mutate({
-												postId: comment.postId,
-												commentId: comment.id,
-											})
-										}
-									/>
-								</ListItem>
+								<CommentCard
+									key={comment.id}
+									data={comment}
+									editable={comment.name === user.name}
+									onDeletion={() =>
+										deleteCommentMutation.mutate({
+											postId: comment.postId,
+											commentId: comment.id,
+										})
+									}
+								/>
 							))}
 						</List>
 					)

@@ -72,6 +72,11 @@ body {
 	font-family: var(--app-font-family);
 }
 
+a {
+	color: var(--font-color);
+	text-decoration: none;
+}
+
 /* 
 	Set parent font size to reduce size
 	Useful for hierarchical relationships

@@ -17,7 +17,6 @@ interface Props {
 	data: Post;
 	shortFormat?: boolean;
 	editable?: boolean;
-	onClick?: () => void;
 	onDeletion?: () => void;
 }
 
@@ -25,11 +24,10 @@ export const PostCard = ({
 	data,
 	shortFormat = false,
 	editable = true,
-	onClick,
 	onDeletion = () => {},
 }: Props) => {
 	return (
-		<Card onClick={onClick}>
+		<Card>
 			<CardHeader
 				endAction={
 					editable && (
