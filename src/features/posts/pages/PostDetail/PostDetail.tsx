@@ -7,14 +7,17 @@ import { getPost } from "../../../../services/posts";
 import styles from "./PostDetail.module.css";
 import {
 	createComment,
+	deleteCommentFromPost,
 	getCommentsFromPost,
 } from "../../../../services/comments";
-import { List, ListItem } from "../../../../shared/components/List";
+import { List } from "../../../../shared/components/List";
 import { CommentCard } from "../../components/CommentCard";
 import { TextArea } from "../../../../shared/components/TextArea";
 import { useCallback, useEffect, useState } from "react";
 import { createNewCommentBody } from "../../../../shared/utils/services";
 import { useUserContext } from "../../../../context/UserContext";
+import type { Comment } from "../../../../shared/types/Comment";
+import { usePostDeletion } from "../../../../hooks/mutations";
 
 export const PostDetail = () => {
 	const [newCommentContent, setNewCommentContent] = useState("");
@@ -27,13 +30,19 @@ export const PostDetail = () => {
 	let { postId } = useParams();
 	const { user } = useUserContext();
 
+	const navigateBack = () => {
+		location.key === "default"
+			? navigate("/", { replace: true })
+			: navigate(-1);
+	};
+
 	const resetCommentField = () => {
-		setNewCommentContent("")
-	}
+		setNewCommentContent("");
+	};
 
 	useEffect(() => {
-	  resetCommentField()
-	}, [location])
+		resetCommentField();
+	}, [location]);
 
 	const queryClient = useQueryClient();
 
@@ -59,7 +68,7 @@ export const PostDetail = () => {
 		mutationFn: createComment,
 		onSuccess: (data) => {
 			console.info(
-				`Se creo correctamente el comentario con id ${data.id}`
+				`Se creo correctamente el comentario con id ${data.id}`,
 			);
 			resetCommentField();
 			queryClient.invalidateQueries({
@@ -69,19 +78,40 @@ export const PostDetail = () => {
 		onError: (error) => {
 			console.error(
 				`Ocurrio el siguiente error al intentar crear el comentario:`,
-				error.message
+				error.message,
 			);
 		},
 	});
 
+	const deleteCommentMutation = useMutation<
+		Comment,
+		Error,
+		{ postId: string; commentId: string }
+	>({
+		mutationFn: ({ postId, commentId }) =>
+			deleteCommentFromPost(postId, commentId),
+		onSuccess: (data) => {
+			console.info(
+				`Se elimino correctamente el comentario con id ${data.id}`,
+			);
+			queryClient.invalidateQueries({
+				queryKey: ["postComments", data.postId],
+			});
+		},
+		onError: (error, variables) => {
+			console.error(
+				`Ocurrio el siguiente error al intentar eliminar el comentario con id ${variables}:`,
+				error.message,
+			);
+		},
+	});
+
+	const { mutate: deletePost } = usePostDeletion(navigateBack);
+
 	return (
 		<>
 			<header className={styles.header}>
-				<Button
-					variant="text"
-					size="small"
-					onClick={() => navigate(-1)}
-				>
+				<Button variant="text" size="small" onClick={navigateBack}>
 					<ChevronLeft size="18px" />
 					Volver
 				</Button>
@@ -92,7 +122,13 @@ export const PostDetail = () => {
 				<p>Error: {postQuery.error.message}</p>
 			) : fetchedPostId && postQuery.data ? (
 				<>
-					<PostCard data={postQuery.data} />
+					<PostCard
+						data={postQuery.data}
+						editable={postQuery.data.name === user.name}
+						onDeletion={() => {
+							postQuery.data && deletePost(postQuery.data.id);
+						}}
+					/>
 					<div className={styles.textAreaContainer}>
 						<TextArea
 							minLength={20}
@@ -111,8 +147,8 @@ export const PostDetail = () => {
 												fetchedPostId,
 												user,
 												newCommentContent,
-												undefined
-											)
+												undefined,
+											),
 										);
 									}}
 								>
@@ -136,9 +172,17 @@ export const PostDetail = () => {
 					commentsQuery.data && (
 						<List>
 							{commentsQuery.data.map((comment) => (
-								<ListItem key={comment.id}>
-									<CommentCard data={comment} />
-								</ListItem>
+								<CommentCard
+									key={comment.id}
+									data={comment}
+									editable={comment.name === user.name}
+									onDeletion={() =>
+										deleteCommentMutation.mutate({
+											postId: comment.postId,
+											commentId: comment.id,
+										})
+									}
+								/>
 							))}
 						</List>
 					)

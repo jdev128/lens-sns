@@ -56,6 +56,7 @@ export const Layout = () => {
 									size="22px"
 								></RefreshIcon>
 							}
+							ariaLabel="Cambiar de usuario"
 						>
 							<Avatar imageURL={user.avatar} withBorder />
 						</Button>

@@ -1,8 +1,16 @@
-.listItem:not(:last-child) {
-	padding-block-end: 8px;
-	border-block-end: 1.5px solid var(--disabled-color);
+.list > * {
+	display: block;
+	padding-block: var(--spacing);
+	&:not(:last-child) {
+		border-block-end: 1.5px solid var(--disabled-color);
+	}
 }
 
-.listItem:not(:first-child) {
-	padding-block-start: 8px;
+.interactiveList > * {
+	cursor: pointer;
+	&:is(:hover, :focus) {
+		border-radius: var(--actionable-border-radius);
+		border-block-end-color: transparent;
+		background-color: var(--hover-color);
+	}
 }
