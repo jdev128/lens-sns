@@ -3,13 +3,12 @@ import styles from "./Card.module.css";
 
 interface CardProps {
 	children: ReactNode;
-	onClick?: () => void;
 }
 
-export const Card = ({ children, onClick }: CardProps) => {
-	let classes = `${styles.card} ${onClick ? styles.clickableCard : ""}`;
+export const Card = ({ children }: CardProps) => {
+	let classes = `${styles.card}`;
 	return (
-		<article className={classes} onClick={onClick}>
+		<article className={classes}>
 			{children}
 		</article>
 	);

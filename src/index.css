@@ -1,8 +1,3 @@
-@import "@fontsource/inter/400.css";
-@import "@fontsource/inter/500.css";
-@import "@fontsource/inter/600.css";
-@import "@fontsource/inter/700.css";
-
 :root {
 	--primary-color: #009688;
 	--on-primary-color: #171717;
@@ -40,7 +35,7 @@
 	--box-shadow: 1px 1px 3px hsl(from var(--background-color) h s calc(l - 40));
 
 	/* Fonts variables */
-	--app-font-family: "Inter", sans-serif;
+	--app-font-family: "Inter Variable", sans-serif;
 	--regular-font-size: 1rem;
 	--clarification-font-size: 0.875em;
 	--title-font-size: 1.125em;
@@ -75,6 +70,11 @@ body {
 	padding: 0;
 	box-sizing: border-box;
 	font-family: var(--app-font-family);
+}
+
+a {
+	color: var(--font-color);
+	text-decoration: none;
 }
 
 /* 

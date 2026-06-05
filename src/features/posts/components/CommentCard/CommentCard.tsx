@@ -1,4 +1,3 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Avatar } from "../../../../shared/components/Avatar";
 import { Button } from "../../../../shared/components/Button";
 import {
@@ -12,59 +11,37 @@ import {
 	getElapsedTime,
 	getPrintableTimePeriod,
 } from "../../../../shared/utils/dates";
-import { deleteCommentFromPost } from "../../../../services/comments";
 import styles from "./CommentCard.module.css";
 
 interface Props {
 	data: Comment;
+	editable?: boolean;
+	onDeletion?: () => void;
 }
 
-export const CommentCard = ({ data }: Props) => {
-	const queryClient = useQueryClient();
-
-	const deleteCommentMutation = useMutation<
-		Comment,
-		Error,
-		{ postId: string; commentId: string }
-	>({
-		mutationFn: ({ postId, commentId }) =>
-			deleteCommentFromPost(postId, commentId),
-		onSuccess: (data) => {
-			console.info(
-				`Se elimino correctamente el comentario con id ${data.id}`
-			);
-			queryClient.invalidateQueries({
-				queryKey: ["postComments", data.postId],
-			});
-		},
-		onError: (error, variables) => {
-			console.error(
-				`Ocurrio el siguiente error al intentar eliminar el comentario con id ${variables}:`,
-				error.message
-			);
-		},
-	});
-
+export const CommentCard = ({
+	data,
+	editable = true,
+	onDeletion = () => {},
+}: Props) => {
 	return (
 		<div className={styles.commentCard}>
 			<Card>
 				<CardHeader
 					endAction={
-						<Button
-							variant="rounded"
-							onClick={() =>
-								deleteCommentMutation.mutate({
-									postId: data.postId,
-									commentId: data.id,
-								})
-							}
-						>
-							{/* TODO: Replace with ellipsis, popover and list of buttons*/}
-							<Trash size="20px" color="var(--error-color)" />
-						</Button>
+						editable && (
+							<Button
+								variant="rounded"
+								onClick={onDeletion}
+								ariaLabel="Eliminar comentario"
+							>
+								{/* TODO: Replace with ellipsis, popover and list of buttons*/}
+								<Trash size="20px" color="var(--error-color)" />
+							</Button>
+						)
 					}
 				>
-					<Avatar imageURL={data.avatar} size="small"/>
+					<Avatar imageURL={data.avatar} size="small" />
 					<div>
 						<div className="emphasizedText">{data.name}</div>
 						<div className="clarificationText">

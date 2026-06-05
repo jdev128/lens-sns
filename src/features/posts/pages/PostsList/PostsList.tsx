@@ -2,12 +2,14 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import "./PostsList.module.css";
 import { getPosts } from "../../../../services/posts";
 import React from "react";
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 import { PostCard } from "../../components/PostCard";
-import { List, ListItem } from "../../../../shared/components/List";
+import { List } from "../../../../shared/components/List";
 import { Button } from "../../../../shared/components/Button";
 import styles from "./PostsList.module.css";
 import { DEFAULT_PAGE_SIZE } from "../../../../shared/utils/constants/services";
+import { useUserContext } from "../../../../context/UserContext";
+import { usePostDeletion } from "../../../../hooks/mutations";
 
 export const PostsList = () => {
 	const {
@@ -27,7 +29,9 @@ export const PostsList = () => {
 			lastPage.length < DEFAULT_PAGE_SIZE ? undefined : lastPageParam + 1,
 	});
 
-	const navigate = useNavigate();
+	const { mutate: deletePost } = usePostDeletion();
+
+	const { user } = useUserContext();
 
 	return status === "pending" ? (
 		<p>Cargando...</p>
@@ -35,17 +39,18 @@ export const PostsList = () => {
 		<p>Error: {error.message}</p>
 	) : (
 		<>
-			<List>
+			<List interactive>
 				{data.pages.map((group, i) => (
 					<React.Fragment key={i}>
 						{group.map((post) => (
-							<ListItem key={post.id}>
+							<Link to={`/post/${post.id}`} key={post.id}>
 								<PostCard
 									data={post}
 									shortFormat
-									onClick={() => navigate(`/post/${post.id}`)}
+									editable={post.name === user.name}
+									onDeletion={() => deletePost(post.id)}
 								/>
-							</ListItem>
+							</Link>
 						))}
 					</React.Fragment>
 				))}
@@ -60,8 +65,8 @@ export const PostsList = () => {
 					{isFetchingNextPage
 						? "Cargando..."
 						: hasNextPage
-						? "Cargar mas publicaciones"
-						: "Llegaste al final"}
+							? "Cargar mas publicaciones"
+							: "Llegaste al final"}
 				</Button>
 			</div>
 		</>

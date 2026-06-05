@@ -16,18 +16,14 @@
 .textareaContainer {
 	border: 1px solid var(--primary-light-color);
 	border-radius: var(--surface-border-radius);
-	padding: var(--spacing);
-	transition: all 0.3s ease;
-}
-
-.textareaContainer:has(.textarea:focus) {
-	box-shadow: var(--box-shadow);
 }
 
 .textarea {
+	display: block;
 	width: 100%;
-	outline: none;
+	padding: var(--spacing);
 	border: none;
+	border-radius: var(--surface-border-radius);
 	overflow-x: hidden;
 	word-break: break-all;
 	font-size: var(--clarification-font-size);
@@ -46,7 +42,8 @@
 }
 
 .textareaActions {
-	margin-block-start: var(--spacing);
+	margin-block-end: var(--spacing);
+	margin-inline-end: var(--spacing);
 }
 
 @supports (resize: none) and (field-sizing: content) {

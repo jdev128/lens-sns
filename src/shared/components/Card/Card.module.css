@@ -3,13 +3,6 @@
     padding: var(--spacing);
 }
 
-.clickableCard {
-	cursor: pointer;
-	&:hover {
-		background-color: var(--hover-color);
-	}
-}
-
 .cardHeader {
 	display: flex;
 	justify-content: space-between;

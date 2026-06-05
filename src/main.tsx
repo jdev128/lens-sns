@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import "@fontsource-variable/inter";
 import "./index.css";
 import { ReactQuery } from "./config/ReactQuery";
 import { App } from "./App";

@@ -5,7 +5,7 @@ import { CloseMark } from "../../icons/CloseMark";
 
 interface DialogProps {
 	children: ReactNode;
-    onClose: () => void;
+	onClose: () => void;
 	open: boolean;
 }
 
@@ -20,13 +20,12 @@ export const Dialog = ({ open, onClose, children }: DialogProps) => {
 		dialog.current?.showModal();
 	};
 
-    useEffect(() => {
-      dialog.current?.addEventListener("close", onClose);
-      return () => {
-        dialog.current?.removeEventListener("close", onClose);
-      }
-    }, [])
-    
+	useEffect(() => {
+		dialog.current?.addEventListener("close", onClose);
+		return () => {
+			dialog.current?.removeEventListener("close", onClose);
+		};
+	}, []);
 
 	useEffect(() => {
 		open ? showDialog() : closeDialog();
@@ -48,7 +47,12 @@ export const DialogHeader = ({ onClose, children }: DialogHeaderProps) => {
 	return (
 		<header className={styles.dialogHeader}>
 			<div className={`titleText ${styles.dialogTitle}`}>{children}</div>
-			<Button size="small" variant="rounded" onClick={onClose}>
+			<Button
+				size="small"
+				variant="rounded"
+				onClick={onClose}
+				ariaLabel="Cerrar diálogo"
+			>
 				<CloseMark size="20px" />
 			</Button>
 		</header>
@@ -59,7 +63,7 @@ interface DialogContentProps {
 	children: ReactNode;
 }
 
-export const DialogContent = ({children}: DialogContentProps) => {
+export const DialogContent = ({ children }: DialogContentProps) => {
 	return <main className={styles.dialogContent}>{children}</main>;
 };
 
@@ -67,8 +71,6 @@ interface DialogFooterProps {
 	children: ReactNode;
 }
 
-export const DialogFooter = ({children}: DialogFooterProps) => {
-  return (
-    <footer className={styles.dialogFooter}>{children}</footer>
-  )
-}
+export const DialogFooter = ({ children }: DialogFooterProps) => {
+	return <footer className={styles.dialogFooter}>{children}</footer>;
+};
